@@ -12,7 +12,14 @@ export class VenomTransporter extends Client implements LeadExternal {
       puppeteer: {
         headless: true,
         args: [
+          "--no-sandbox",
           "--disable-setuid-sandbox",
+          "--disable-dev-shm-usage",
+          "--disable-accelerated-2d-canvas",
+          "--no-first-run",
+          "--no-zygote",
+          "--single-process", // Esta opción es importante en entornos con restricciones.
+          "--disable-gpu",
           "--unhandled-rejections=strict",
         ],
       },
