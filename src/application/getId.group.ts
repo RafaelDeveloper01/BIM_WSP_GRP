@@ -21,9 +21,9 @@ export class GetIdGroup {
 
     let responseExSave;
     const responseDbSave = await this.leadRepository.save({ message, phone });//TODO DB
-   
-    responseExSave= await this.leadExternal.getGroupInfoFromInviteLink({ message, phone });
-   
-    return {responseDbSave, responseExSave};
+
+    responseExSave = await this.leadExternal.getGroupInfoFromInviteLink({ message, phone });
+
+    return { responseDbSave, responseExSave };
   }
 }
