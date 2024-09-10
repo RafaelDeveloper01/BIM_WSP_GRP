@@ -36,20 +36,24 @@ export class VenomTransporter extends Client implements LeadExternal {
           const time = date.toLocaleTimeString();
 
           // Verificar si el mensaje es de un grupo o de un chat personal
-          if (message.isGroupMsg) {
-            console.log(`Mensaje recibido (grupo - ${message.sender.pushname} - hora : ${time}): ${message.body}`);
+          if (message.from.includes('@c.us') || message.from.includes('@g.us')) {
+            if (message.isGroupMsg) {
+              console.log(`Mensaje recibido (grupo - ${message.sender.pushname} - hora: ${time}): ${message.body}`);
+            } else {
+              console.log(`Mensaje recibido (chat - ${message.sender.pushname} - hora: ${time}): ${message.body}`);
+            }
+
+            // Verificar si el mensaje contiene la palabra 'hhhh', ignorando mayúsculas y minúsculas
+            if (message.body.toLowerCase().includes("hhhh")) {
+              console.log("Palabra 'hhhh' detectada en el mensaje");
+
+              // Enviar un mensaje de respuesta si se detecta la palabra
+              const responseMessage = "He detectado la palabra 'hhhh'. ¿En qué puedo ayudarte?";
+              const target = message.isGroupMsg ? message.from : message.sender.id;
+              await this.sendMsg({ message: responseMessage, phone: target.split('@')[0], isGroup: message.isGroupMsg });
+            }
           } else {
-            console.log(`Mensaje recibido (chat - ${message.sender.pushname} - hora : ${time}): ${message.body}`);
-          }
-
-          // Verificar si el mensaje contiene la palabra 'chicos', ignorando mayúsculas y minúsculas
-          if (message.body.toLowerCase().includes("hhhh")) {
-            console.log("Palabra 'chicos' detectada en el mensaje");
-
-            // Enviar un mensaje de respuesta si se detecta la palabra
-            const responseMessage = "He detectado la palabra 'chicos'. ¿En qué puedo ayudarte?";
-            const target = message.isGroupMsg ? message.from : message.sender.id; // Definir el destino basado en el tipo de mensaje
-            await this.sendMsg({ message: responseMessage, phone: target.split('@')[0], isGroup: message.isGroupMsg }); // Enviar mensaje al grupo o al contacto
+            console.log('El mensaje proviene de un estado o una fuente no válida.');
           }
         } else {
           console.log('Mensaje no tiene un cuerpo de texto o no es una cadena.');
