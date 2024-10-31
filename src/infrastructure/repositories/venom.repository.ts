@@ -44,11 +44,11 @@ export class VenomTransporter extends Client implements LeadExternal {
             }
 
             // Verificar si el mensaje contiene la palabra 'hhhh', ignorando mayúsculas y minúsculas
-            if (message.body.toLowerCase().includes("hhhh")) {
-              console.log("Palabra 'hhhh' detectada en el mensaje");
+            if (message.body.toLowerCase().includes("hhhhhhhhhhhh")) {
+              console.log("Palabra 'hhhhhhhhhhhh' detectada en el mensaje");
 
               // Enviar un mensaje de respuesta si se detecta la palabra
-              const responseMessage = "He detectado la palabra 'hhhh'. ¿En qué puedo ayudarte?";
+              const responseMessage = "He detectado la palabra 'hhhhhhhhhhhh'. ¿En qué puedo ayudarte?";
               const target = message.isGroupMsg ? message.from : message.sender.id;
               await this.sendMsg({ message: responseMessage, phone: target.split('@')[0], isGroup: message.isGroupMsg });
             }
